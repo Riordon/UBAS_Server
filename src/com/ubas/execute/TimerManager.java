@@ -31,7 +31,8 @@ public class TimerManager {
 		TimerTask task = new TimerTask() {
 			@Override
 			public void run() {
-				System.out.println("I am running ...");
+				SingleUserJob singleUserJob = new SingleUserJob();
+				new Thread(singleUserJob).start();
 			}
 		};
 		
