@@ -10,7 +10,7 @@ import com.ubas.util.Parameter;
 
 public class PageAccessAnalyDAO {
 
-	private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
+	private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public String getAccessPage(Parameter parameter) {
 		
@@ -24,9 +24,20 @@ public class PageAccessAnalyDAO {
 			String startkey = SDF.format(startTime);
 			String endkey = SDF.format(endTime);
 			
-			DB db = mongo.getDatabase("user_behavior_analysis_result");
+			int[] sorts = parameter.getSorts();
 			
-			Object result = db.eval("clothing_epd_access_page(\"" + startkey + "\", \"" + endkey + "\")");
+			int sort = sorts[0];
+			
+			System.out.println(startkey);
+			System.out.println(endkey);
+				
+//			DB db = mongo.getDatabase("user_behavior_analysis_result");
+//			Object result = db.eval("clothing_epd_access_page(\"" + startTime + "\", \"" + endTime + "\")");
+
+			DB db = mongo.getDatabase("db_muti_user");
+			Object result = db.eval("clothing_epd_access_page(\"" + startTime + "\", \"" + endTime + "\", \"" + sort + "\")");
+			
+			System.out.println(result);
 			
 			return result.toString();
 			

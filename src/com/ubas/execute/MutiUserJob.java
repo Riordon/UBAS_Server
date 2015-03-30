@@ -31,7 +31,7 @@ public class MutiUserJob implements Runnable {
 			mongo = new MDBPoll(Constants.MONGODB_ADDR, Constants.MONGODB_PORT);
 		
 			String type = "1";
-			String channeltype = "5";
+			String channeltype = "0";
 			String username = "";
 	
 			int page=0;
@@ -62,9 +62,28 @@ public class MutiUserJob implements Runnable {
 				return;
 			}
 			
-			DB dbResult = mongo.getDatabase("user_behavior_analysis_result");
+			if (!type.equals("1")) {
+				System.out.println("not for all the people");
+				return;
+			}
 			
-			String tableName = "AllUsers_Collection";
+			DB dbResult = mongo.getDatabase("db_muti_user");
+			String tableName = "";
+			if(channeltype.equals("5")) { // 全频道
+				tableName = "t_access_page_all_channels";
+			}
+			else if(channeltype.equals("0")) { //男装频道
+				tableName = "t_access_page_men_channel";
+			}
+			else if(channeltype.equals("1")) { //女装频道
+				tableName = "t_access_page_women_channel";
+			}
+			else if(channeltype.equals("2")) { //时尚圈频道
+				tableName = "t_access_page_fashtion_channel";
+			}
+			else {
+				System.out.println("no find the channel ...");
+			}
 
 			DBCollection dbCollection = dbResult.getCollection(tableName);
 			if (dbCollection == null) {

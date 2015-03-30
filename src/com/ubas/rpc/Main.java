@@ -11,8 +11,8 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Endpoint.publish("http://" + Constants.LOCAL_ADDR + ":"
-				+ Constants.LOCAL_PORT
+		Endpoint.publish("http://" + Constants.WEBSERVICE_ADDR + ":"
+				+ Constants.WEBSERVICE_PORT
 				+ "/UbasServer/ClothingEPD/PageAccessAnaly",
 				new PageAccessAnalyImpl());
 	}
