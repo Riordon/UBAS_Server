@@ -24,18 +24,26 @@ public class PageAccessAnalyDAO {
 			String startkey = SDF.format(startTime);
 			String endkey = SDF.format(endTime);
 			
-			int[] sorts = parameter.getSorts();
-			
-			int sort = sorts[0];
-			
 			System.out.println(startkey);
 			System.out.println(endkey);
-				
-//			DB db = mongo.getDatabase("user_behavior_analysis_result");
-//			Object result = db.eval("clothing_epd_access_page(\"" + startTime + "\", \"" + endTime + "\")");
-
-			DB db = mongo.getDatabase("db_muti_user");
-			Object result = db.eval("clothing_epd_access_page(\"" + startTime + "\", \"" + endTime + "\", \"" + sort + "\")");
+			
+			int sort = 0;
+			int[] sorts = parameter.getSorts();
+			if (sorts != null)
+				sort = sorts[0];
+			
+			DB db = null;
+			Object result = null;
+			
+			String account = parameter.getAccount();
+			if (account == null) {
+				db = mongo.getDatabase("db_muti_user");
+				result = db.eval("clothing_epd_access_page(\"" + startTime + "\", \"" + endTime + "\", \"" + sort + "\")");
+			}
+			else {
+			//	db = mongo.getDatabase("db_single_user");
+			//	result = db.eval("clothing_epd_access_page(\"" + startTime + "\", \"" + endTime + "\", \"" + sort + "\")");
+			}
 			
 			System.out.println(result);
 			

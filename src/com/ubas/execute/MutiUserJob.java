@@ -31,7 +31,7 @@ public class MutiUserJob implements Runnable {
 			mongo = new MDBPoll(Constants.MONGODB_ADDR, Constants.MONGODB_PORT);
 		
 			String type = "1";
-			String channeltype = "0";
+			String channeltype = "2";
 			String username = "";
 	
 			int page=0;
